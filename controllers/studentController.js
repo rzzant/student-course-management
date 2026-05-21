@@ -93,10 +93,31 @@ const deleteStudent=(req,res)=>{
     });
 
 };
+const getStudentsByCourse = (req,res)=>{
+
+    const { id } = req.params;
+
+    const query = `
+    SELECT *
+    FROM student
+    WHERE course_id=?`;
+
+    db.query(query,[id],(err,result)=>{
+
+        if(err){
+            return res.status(500).json(err);
+        }
+
+        res.json(result);
+
+    });
+
+};
 
 module.exports = {
     getAllStudents,
     addStudent,
     updateStudent,
-    deleteStudent
+    deleteStudent,
+    getStudentsByCourse
 };
